@@ -3,8 +3,9 @@ body, html {
     padding: 0;
     overflow: hidden;
     height: 100vh;
-    background-size: cover; /* Ensures the background covers the whole page */
+    width: 100vw; /* Ensure the full width is considered */
     background: url('giphy.gif') no-repeat center center fixed; /* Replace background color with GIF */
+    background-size: cover; /* Ensures the background covers the whole page */
 }
 
 .container {
