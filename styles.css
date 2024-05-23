@@ -3,8 +3,8 @@ body, html {
     padding: 0;
     overflow: hidden;
     height: 100vh;
-    background: url('giphy.gif') no-repeat center center fixed; /* Replace background color with GIF */
     background-size: cover; /* Ensures the background covers the whole page */
+    background: url('giphy.gif') no-repeat center center fixed; /* Replace background color with GIF */
 }
 
 .container {
