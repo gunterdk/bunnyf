@@ -2,10 +2,10 @@ body, html {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #87CEEB; /* Light blue sky background */
     height: 100vh;
+    background: url('background.gif') no-repeat center center fixed; /* Replace background color with GIF */
+    background-size: cover; /* Ensures the background covers the whole page */
 }
-
 .container {
     position: relative;
     width: 100vw;
