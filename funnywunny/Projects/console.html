@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Console Simulation</title>
+    <style>
+        body {
+            background-color: black;
+            color: lime;
+            font-family: monospace;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #console {
+            padding: 20px;
+        }
+
+        .options {
+            margin-top: 20px;
+        }
+
+        .options button {
+            background: black;
+            border: 1px solid lime;
+            color: lime;
+            padding: 10px 20px;
+            margin: 5px 0;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .options button:hover {
+            background: lime;
+            color: black;
+        }
+
+        #output {
+            margin-top: 20px;
+            white-space: pre-line;
+            opacity: 1; /* Default visible */
+        }
+    </style>
+</head>
+<body>
+    <div id="console">
+        <div id="boot-up">
+            Initializing system... <span class="loading-text">|</span>
+        </div>
+        <div class="options" style="display: none;">
+            <p>Select an option:</p>
+            <button onclick="executeTerm('Jailbreaking')">Jailbreaking</button>
+            <button onclick="executeTerm('Homebrew')">Homebrew</button>
+            <button onclick="executeTerm('Rooting')">Rooting</button>
+            <button onclick="executeTerm('Modding')">Modding</button>
+            <button onclick="executeTerm('Hacking')">Hacking</button>
+            <button onclick="executeTerm('Exploiting')">Exploiting</button>
+            <button onclick="executeTerm('Bootstrapping')">Bootstrapping</button>
+            <button onclick="executeTerm('Cracking')">Cracking</button>
+            <button onclick="executeTerm('Flashing')">Flashing</button>
+            <button onclick="executeTerm('Unlocking')">Unlocking</button>
+            <button onclick="executeTerm('Sideloading')">Sideloading</button>
+        </div>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        // Simulate boot-up sequence
+        const bootUp = document.getElementById("boot-up");
+        const optionsDiv = document.querySelector(".options");
+        const outputDiv = document.getElementById("output");
+
+        setTimeout(() => {
+            bootUp.innerHTML = "System initialized. Ready.";
+            optionsDiv.style.display = "block";
+        }, 3000);
+
+        // Commands for each term
+        const commands = {
+    "Jailbreaking": [
+        "> Initializing jailbreak process...",
+        "> Detecting system firmware...",
+        "> Bypassing integrity checks...",
+        "> Installing custom payload...",
+        "> System jailbroken successfully.",
+        "> Verifying system compatibility...",
+        "> Patching bootloader for root access...",
+        "> Loading exploit payload...",
+        "> Disabling security modules...",
+        "> Activating advanced jailbreak tools...",
+        "> Backing up system data...",
+        "> Cleaning up system environment...",
+        "> Restarting system...",
+        "> Re-enabling custom configurations...",
+        "> Verifying custom payload installation...",
+        "> Reverting any failed modifications...",
+        "> Rebooting with new privileges...",
+        "> Testing new system capabilities...",
+        "> Finalizing jailbreak setup...",
+        "> Jailbreaking completed successfully."
+    ],
+    "Homebrew": [
+        "> Loading homebrew tools...",
+        "> Installing user-defined software...",
+        "> Configuring custom permissions...",
+        "> Building homebrew library...",
+        "> Homebrew environment ready.",
+        "> Checking system requirements...",
+        "> Installing essential packages...",
+        "> Setting up package manager...",
+        "> Verifying package integrity...",
+        "> Configuring environment variables...",
+        "> Activating sandbox environment...",
+        "> Installing homebrew applications...",
+        "> Patching system components...",
+        "> Resolving dependency issues...",
+        "> Testing custom builds...",
+        "> Verifying system compatibility...",
+        "> Finishing setup of homebrew environment...",
+        "> Homebrew package installation complete.",
+        "> Homebrew environment initialized."
+    ],
+    "Rooting": [
+        "> Gaining root access...",
+        "> Modifying core system files...",
+        "> Patching kernel for superuser rights...",
+        "> Verifying root status...",
+        "> Root access granted!",
+        "> Checking system root permissions...",
+        "> Installing superuser management tools...",
+        "> Configuring root shell environment...",
+        "> Bypassing security restrictions...",
+        "> Modifying sudo permissions...",
+        "> Running privileged scripts...",
+        "> Updating system files for root...",
+        "> Testing root access with new privileges...",
+        "> Validating system root integrity...",
+        "> Finalizing root setup...",
+        "> Activating root features...",
+        "> Rebooting with elevated privileges...",
+        "> Configuring user access control...",
+        "> Root environment complete.",
+        "> System now running as root."
+    ],
+    "Modding": [
+        "> Analyzing current software version...",
+        "> Installing custom modifications...",
+        "> Adjusting graphics settings...",
+        "> Loading new user assets...",
+        "> Modding complete. Changes applied.",
+        "> Verifying game mod compatibility...",
+        "> Configuring mod loader...",
+        "> Patching game files...",
+        "> Installing texture packs...",
+        "> Replacing default assets...",
+        "> Installing custom scripts...",
+        "> Activating modding environment...",
+        "> Enabling new in-game features...",
+        "> Testing mod functionality...",
+        "> Ensuring smooth integration with game engine...",
+        "> Modding process in progress...",
+        "> Configuring mod settings...",
+        "> Reverting any conflicts with original files...",
+        "> Finalizing mod installation...",
+        "> Modding complete. Ready to play."
+    ],
+    "Hacking": [
+        "> Searching for vulnerabilities...",
+        "> Exploiting open entry points...",
+        "> Accessing restricted features...",
+        "> Retrieving encrypted data...",
+        "> Hacking process completed.",
+        "> Scanning network for open ports...",
+        "> Deploying brute-force attack...",
+        "> Extracting system credentials...",
+        "> Breaking encryption algorithms...",
+        "> Intercepting network traffic...",
+        "> Hiding attack traces...",
+        "> Installing remote access tools...",
+        "> Stealthily escalating privileges...",
+        "> Targeting database vulnerabilities...",
+        "> Exfiltrating sensitive data...",
+        "> Analyzing security weaknesses...",
+        "> Testing backup systems for breach...",
+        "> Generating detailed hacking report...",
+        "> Anonymizing attacker footprint...",
+        "> Hack complete, no traces left."
+    ],
+    "Exploiting": [
+        "> Scanning system for exploits...",
+        "> Targeting vulnerable module...",
+        "> Deploying exploit payload...",
+        "> Executing custom script...",
+        "> Exploit successful!",
+        "> Identifying outdated software versions...",
+        "> Exploiting unpatched security holes...",
+        "> Escalating privileges through exploit...",
+        "> Bypassing authentication checks...",
+        "> Using zero-day vulnerability...",
+        "> Deploying reverse shell for access...",
+        "> Activating privilege escalation...",
+        "> Accessing secure modules...",
+        "> Injecting malicious code...",
+        "> Disabling security measures...",
+        "> Creating a backdoor for remote access...",
+        "> Deleting exploit traces...",
+        "> Exfiltrating valuable data...",
+        "> Sending exploit results to server...",
+        "> Exploit execution complete."
+    ],
+    "Bootstrapping": [
+        "> Initializing bootstrap sequence...",
+        "> Setting up runtime environment...",
+        "> Loading critical system files...",
+        "> Preparing custom configurations...",
+        "> Bootstrapping process completed.",
+        "> Checking system for prerequisites...",
+        "> Verifying system stability...",
+        "> Activating core services...",
+        "> Mounting file systems...",
+        "> Configuring boot settings...",
+        "> Testing hardware compatibility...",
+        "> Loading kernel modules...",
+        "> Setting up boot environment...",
+        "> Starting boot-up procedures...",
+        "> Verifying root file systems...",
+        "> Configuring user environment...",
+        "> Finalizing boot setup...",
+        "> Running diagnostics...",
+        "> Boot process finished.",
+        "> System is now fully bootstrapped."
+    ],
+    "Cracking": [
+        "> Bypassing software protections...",
+        "> Removing DRM restrictions...",
+        "> Modifying license keys...",
+        "> Unlocking full access...",
+        "> Cracking process successful!",
+        "> Analyzing target software...",
+        "> Identifying encryption methods...",
+        "> Decoding software protections...",
+        "> Extracting hidden features...",
+        "> Applying patch to bypass restrictions...",
+        "> Decrypting license keys...",
+        "> Testing cracked software version...",
+        "> Removing trial limitations...",
+        "> Modifying registry entries...",
+        "> Verifying full access unlock...",
+        "> Creating cracked version...",
+        "> Reverting changes to original files...",
+        "> Disabling security patches...",
+        "> Finalizing crack installation...",
+        "> Cracked software now ready for use."
+    ],
+    "Flashing": [
+        "> Preparing firmware package...",
+        "> Backing up existing system...",
+        "> Installing custom firmware...",
+        "> Verifying integrity of install...",
+        "> Flashing complete. Rebooting system...",
+        "> Checking system for firmware updates...",
+        "> Verifying target hardware compatibility...",
+        "> Installing bootloader updates...",
+        "> Patching firmware vulnerabilities...",
+        "> Flashing new custom firmware...",
+        "> Verifying flash operation...",
+        "> Testing boot sequence...",
+        "> Reverting failed installations...",
+        "> Installing firmware recovery tools...",
+        "> Ensuring proper system boot...",
+        "> Flashing process in progress...",
+        "> Checking system logs for errors...",
+        "> Confirming successful firmware install...",
+        "> Rebooting system for updates...",
+        "> Firmware flashing complete."
+    ],
+    "Unlocking": [
+        "> Removing hardware restrictions...",
+        "> Unlocking additional settings...",
+        "> Enabling hidden features...",
+        "> Configuring unlocked mode...",
+        "> Unlocking process finished.",
+        "> Bypassing manufacturer restrictions...",
+        "> Unlocking advanced configurations...",
+        "> Enabling developer mode...",
+        "> Modifying system preferences...",
+        "> Testing unlocked features...",
+        "> Deleting security protocols...",
+        "> Restoring default system settings...",
+        "> Activating custom unlock options...",
+        "> Finalizing unlock modifications...",
+        "> Unlocking complete. Restarting system...",
+        "> Verifying all unlocked settings...",
+        "> Ensuring system stability...",
+        "> Re-enabling secure boot mode...",
+        "> Unlocking process successful.",
+        "> Device now fully unlocked."
+    ],
+    "Sideloading": [
+        "> Enabling external installation...",
+        "> Verifying package integrity...",
+        "> Installing application...",
+        "> Optimizing resources for sideload...",
+        "> Sideloading completed successfully.",
+        "> Checking target device for sideloading...",
+        "> Disabling default installation restrictions...",
+        "> Validating package format...",
+        "> Installing external dependencies...",
+        "> Configuring installation scripts...",
+        "> Bypassing app store checks...",
+        "> Verifying app functionality...",
+        "> Running security tests...",
+        "> Monitoring resource usage...",
+        "> Testing sideloaded app...",
+        "> Completing installation process...",
+        "> Finalizing resource optimization...",
+        "> Sideloading process complete.",
+        "> Device ready for external app usage."
+    ]
+};
+
+
+        // Function to simulate executing a term
+function executeTerm(term) {
+    const termCommands = commands[term];
+    outputDiv.innerHTML = "";
+    let index = 0;
+
+    // Typing animation
+    const interval = setInterval(() => {
+        if (index < termCommands.length) {
+            outputDiv.innerHTML += termCommands[index] + "\n";
+            index++;
+        } else {
+            clearInterval(interval);
+        }
+    }, 50); // Adjusted typing speed to be faster (50ms interval per character)
+}
+
+
+        // Random flickering effect for the output
+        function randomFlicker() {
+    let isVisible = true;
+
+    function flicker() {
+        const randomDelay = Math.random() * 2000 + 1000; // Random delay between 1000ms (1s) and 3000ms (3s)
+        const flickerDuration = 25; // Very short flicker duration (25ms for quick invisibility)
+
+        isVisible = !isVisible; // Toggle visibility
+        outputDiv.style.opacity = isVisible ? "1" : "0"; // Apply visibility
+
+        // After flicker duration, set it back to visible immediately
+        setTimeout(() => {
+            outputDiv.style.opacity = "1"; // Ensure it's visible after a short flicker
+        }, flickerDuration);
+
+        // Set the next flicker after a random delay
+        setTimeout(flicker, randomDelay);
+    }
+
+    flicker(); // Start flickering
+}
+
+
+
+
+        randomFlicker(); // Activate random flickering
+    </script>
+</body>
+</html>

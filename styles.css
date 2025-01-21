@@ -1,157 +1,196 @@
-body, html {
+/* Reset */
+* {
     margin: 0;
     padding: 0;
-    overflow: hidden;
-    height: 100vh;
-    width: 100vw; /* Ensure the full width is considered */
-    background: url('giphy.gif') no-repeat center center fixed; /* Replace background color with GIF */
-    background-size: cover; /* Ensures the background covers the whole page */
+    box-sizing: border-box;
+    font-family: 'Press Start 2P', monospace; /* 8-bit pixel font */
 }
 
-.container {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
+/* Body Styling */
+body {
+    background-color: #0a0a0a; /* Darker gray to simulate monitor background */
+    color: #00ff00; /* Neon green for text */
+    padding: 0;
     overflow: hidden;
 }
 
-.bunny {
-    position: absolute;
-    bottom: 0;
-    width: 50px;
-    height: 50px;
-    background: url('bunny.png') no-repeat center center;
-    background-size: contain;
-    animation: hop 1s infinite, moveX 10s linear infinite;
-    opacity: 0; /* Initially hidden */
-}
-
-#bunny1 { animation-delay: 0s, 0s; }
-#bunny2 { animation-delay: 1s, 2s; }
-#bunny3 { animation-delay: 2s, 4s; }
-#bunny4 { animation-delay: 3s, 6s; }
-#bunny5 { animation-delay: 4s, 8s; }
-
-@keyframes hop {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-50px); }
-}
-
-@keyframes moveX {
-    0% { left: calc(100% + 50px); transform: scaleX(1); }
-    20% { left: 70%; transform: scaleX(1); }
-    40% { left: 50%; transform: scaleX(1) translateY(-25px); opacity: 1; /* Show bunny */ }
-    60% { left: 30%; transform: scaleX(1); }
-    80% { left: -50px; transform: scaleX(1); }
-    100% { left: -50px; transform: scaleX(1); }
-}
-
-.about-me-section, .platforms-section {
-    color: #ffffff; /* White text */
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Text glow effect */
-    padding: 20px; /* Add padding */
-    background-color: rgba(0, 0, 0, 0.6); /* Darkened and translucent background */
-    border-radius: 10px; /* Rounded corners */
-}
-
-.about-me-section h2, .platforms-section h2 {
-    margin-bottom: 10px; /* Add margin below heading */
-}
-
-/* Style the panel */
-.panel {
+/* CRT Grainy Monitor Effect */
+body::before {
+    content: "";
     position: fixed;
-    top: 10%;
-    left: 10%;
-    width: 80%;
-    height: 80vh;
-    background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent background */
-    backdrop-filter: blur(10px); /* Blur the background */
-    border-radius: 20px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Shadow for depth */
-    z-index: 9999; /* Ensure the panel is on top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 255, 0, 0.05);
+    mix-blend-mode: overlay;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.1; /* Controls grain visibility */
+}
+
+/* Top Bar */
+.topbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #0a0a0a;
+    padding: 1em;
+    position: relative;
+    border-bottom: 1px solid #00ff00; /* Line separator */
+}
+
+/* Menu Item Links */
+.menu-item a {
+    color: #00ff00; /* Green text color for links */
+    text-decoration: none; /* Remove underline from links */
+    display: inline-block;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.menu-item a:hover {
+    color: #00ff00;
+    outline: 2px solid #00ff00; /* Green outline on hover */
+    outline-offset: 2px;
+}
+
+/* 8-Bit Style */
+.content {
+    padding: 2em;
+    filter: contrast(150%);
+    z-index: 2;
+    position: relative;
+}
+
+/* Text Dithering Effect */
+p, h1 {
+    font-size: 1.2em;
+    text-shadow:
+        1px 1px 0 #003300,
+        -1px -1px 0 #00ff00,
+        1px -1px 0 #004400,
+        -1px 1px 0 #00ff00;
+}
+
+/* Pixelated Effect */
+body, .topbar, .content {
+    image-rendering: pixelated;
+}
+
+/* Faint Glow Effect */
+h1, p, .menu-item, #typed-text {
+    text-shadow: 
+        0 0 5px rgba(0, 255, 0, 0.6), /* Soft green glow */
+        0 0 10px rgba(0, 255, 0, 0.6), /* Stronger green glow */
+        0 0 15px rgba(0, 255, 0, 0.4), /* Extended glow */
+        0 0 20px rgba(0, 255, 0, 0.4); /* Extended glow */
+}
+
+/* Profile Picture with 8-bit effect */
+.profile-pic {
+    width: 150px; /* Adjust size as needed */
+    height: 150px; /* Adjust size as needed */
+    object-fit: cover;
+    image-rendering: pixelated; /* Makes the image appear pixelated */
+    border-radius: 10px; /* Round the corners for a soft effect */
+    border: 3px solid #00ff00; /* Green border to match the theme */
+    margin-bottom: 20px;
+}
+
+/* Content styling */
+.profile-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.8); /* Glow effect */
+}
+
+/* Button Styling */
+.social-button {
+    background-color: transparent;
+    border: 2px solid #00ff00;
+    color: #00ff00;
+    padding: 12px 24px;
+    border-radius: 5px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-shadow: 
+        0 0 5px rgba(0, 255, 0, 0.6), 
+        0 0 10px rgba(0, 255, 0, 0.6);
+}
+
+.social-button:hover {
+    background-color: #00ff00;
+    color: #000000;
+    text-shadow: 
+        0 0 10px rgba(0, 255, 0, 1), 
+        0 0 20px rgba(0, 255, 0, 0.9);
+}
+
+/* Game Preview Container */
+.game-preview-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    overflow-y: auto;
+    height: 80vh; /* Limit the container height to allow scrolling */
+    margin-top: 20px;
+    margin-bottom: 60px; /* Space below the previews */
+}
+
+/* Individual Game Item */
+.game-item {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Align items to the top */
     align-items: center;
-    overflow: hidden; /* Prevent overflow */
+    max-width: 200px;
 }
 
-/* Style the button container */
-.button-container {
-    width: 100%; /* Full width */
-    display: flex;
-    justify-content: center; /* Center the buttons horizontally */
-    align-items: flex-start; /* Align items to the top */
-    margin-top: 20px; /* Add margin at the top */
+/* Game Image Styling */
+.game-image {
+    width: auto;
+    height: 250px; /* Fixed height for image */
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 2px solid #00ff00; /* Green border to match the theme */
 }
 
-/* Style the buttons */
-.button {
-    padding: 15px 40px; /* Increase padding */
-    margin: 0 10px; /* Add margin to separate the buttons */
-    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
-    color: white;
-    border: none;
-    border-radius: 0; /* Remove border radius */
-    cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; /* Added color transition */
-    font-size: 18px; /* Increase font size */
-    font-weight: bold; /* Make text bold */
-    position: relative;
-    overflow: hidden;
+/* Game Name Styling */
+.game-item p {
+    text-align: center;
+    color: #00ff00;
+    font-size: 1em;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.6);
 }
 
-/* Button hover effect */
-.button:hover {
-    background-color: rgba(50, 50, 50, 0.9); /* Darker background on hover */
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2), 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(0, 255, 0, 0.8), 0 0 30px rgba(0, 0, 255, 0.8); /* RGB glow */
-    color: rgba(255, 255, 255, 0.9); /* Lighter text on hover */
+/* Scrollbar Track */
+::-webkit-scrollbar-track {
+    background: black; /* Matches your background */
+    border: 1px solid green; /* Adds an outline with neon green */
 }
 
-/* Divider between buttons */
-.divider {
-    height: 60px; /* Height to match button */
-    width: 2px; /* Slim width */
-    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
-    align-self: stretch; /* Ensure it stretches vertically */
+/* Scrollbar Thumb */
+::-webkit-scrollbar-thumb {
+    background: green; /* Neon green thumb */
+    border: 2px solid black; /* Adds a border for a pixelated look */
+    border-radius: 4px; /* Optional: Adjust for style consistency */
 }
 
-/* Dynamic glow effect */
-.panel::before {
-    content: '';
-    position: absolute;
-    top: calc(var(--glow-y, 0) - 50px); /* Adjusted to make glow smaller than the area */
-    left: calc(var(--glow-x, 0) - 50px); /* Adjusted to make glow smaller than the area */
-    width: 100px; /* Fixed size for the glow effect */
-    height: 100px; /* Fixed size for the glow effect */
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 80%);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.1s ease;
-    mix-blend-mode: screen;
-    z-index: 999; /* Ensure it is on top of other elements */
-    border-radius: 50%; /* Make it a circle */
-}
-
-.panel.active-glow::before {
-    opacity: 1;
-}
-
-/* RGB Outline Effect */
-.button {
-    border: 2px solid transparent;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-.button:hover {
-    background-color: rgba(50, 50, 50, 0.9);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2), 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(0, 255, 0, 0.8), 0 0 30px rgba(0, 0, 255, 0.8); /* RGB glow */
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-.games-list {
-    max-height: 400px; /* Set maximum height */
-    overflow-y: auto; /* Enable vertical scrolling */
+/* Scrollbar Width */
+::-webkit-scrollbar {
+    width: 12px; /* Adjust for visible scrollbar size */
+    height: 12px; /* For horizontal scrollbars */
 }

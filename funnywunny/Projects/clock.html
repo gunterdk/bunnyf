@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Time-Based Background</title>
+  <style>
+    /* CSS for time-based background */
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      text-align: center;
+      transition: background-color 1s ease-in-out;
+    }
+
+    #timeDisplay {
+      font-size: 64px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="timeDisplay"></div>
+
+<script>
+  function updateTime() {
+    const timeDisplay = document.getElementById('timeDisplay');
+    const currentTime = new Date();
+    const hours = currentTime.getHours();
+    const minutes = currentTime.getMinutes();
+    const seconds = currentTime.getSeconds();
+
+    const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    timeDisplay.textContent = formattedTime;
+
+    const backgroundColor = `rgb(${Math.floor(hours * 10)}, ${Math.floor(minutes * 4)}, ${Math.floor(seconds * 4)})`;
+    document.body.style.backgroundColor = backgroundColor;
+  }
+
+  setInterval(updateTime, 1000);
+  updateTime(); // Update time immediately on page load
+</script>
+
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Particle Playground</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle, #1e272e, #2f3640);
+        }
+
+        #control-panel {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            color: #fff;
+            z-index: 10;
+            font-size: 14px;
+            max-width: 300px;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="range"], input[type="color"], button {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        button {
+            background: #e74c3c;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        button:hover {
+            background: #c0392b;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="control-panel">
+        <h2>Particle Playground</h2>
+        <div class="control-group">
+            <label for="particle-color">Particle Color:</label>
+            <input type="color" id="particle-color" value="#ff9ff3">
+        </div>
+        <div class="control-group">
+            <label for="particle-size">Particle Size:</label>
+            <input type="range" id="particle-size" min="1" max="30" value="5">
+        </div>
+        <div class="control-group">
+            <label for="particle-speed">Particle Speed:</label>
+            <input type="range" id="particle-speed" min="1" max="15" value="5">
+        </div>
+        <div class="control-group">
+            <button id="toggle-gravity">Toggle Gravity</button>
+            <button id="add-gravity-point">Add Gravity Point</button>
+        </div>
+        <button id="clear-canvas">Clear Canvas</button>
+    </div>
+    <canvas id="particle-canvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const gravityPoints = [];
+        let gravityEnabled = false;
+        let particleColor = '#ff9ff3';
+        let particleSize = 5;
+        let particleSpeed = 5;
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = particleSize;
+                this.color = particleColor;
+                this.vx = (Math.random() - 0.5) * particleSpeed;
+                this.vy = (Math.random() - 0.5) * particleSpeed;
+            }
+
+            update() {
+                if (gravityEnabled) {
+                    gravityPoints.forEach(point => {
+                        const dx = point.x - this.x;
+                        const dy = point.y - this.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        const force = Math.min(5 / distance, 0.1);
+                        this.vx += force * dx;
+                        this.vy += force * dy;
+                    });
+                }
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Bounce off edges
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        class GravityPoint {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 10, 0, Math.PI * 2);
+                ctx.strokeStyle = 'white';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+        }
+
+        function createParticle(e) {
+            const x = e.clientX;
+            const y = e.clientY;
+            particles.push(new Particle(x, y));
+        }
+
+        function addGravityPoint(e) {
+            const x = e.clientX;
+            const y = e.clientY;
+            gravityPoints.push(new GravityPoint(x, y));
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            gravityPoints.forEach(point => point.draw());
+            particles.forEach((particle, index) => {
+                particle.update();
+                particle.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        canvas.addEventListener('click', createParticle);
+        document.getElementById('particle-color').addEventListener('change', (e) => {
+            particleColor = e.target.value;
+        });
+
+        document.getElementById('particle-size').addEventListener('input', (e) => {
+            particleSize = parseInt(e.target.value, 10);
+        });
+
+        document.getElementById('particle-speed').addEventListener('input', (e) => {
+            particleSpeed = parseInt(e.target.value, 10);
+        });
+
+        document.getElementById('toggle-gravity').addEventListener('click', () => {
+            gravityEnabled = !gravityEnabled;
+        });
+
+        document.getElementById('clear-canvas').addEventListener('click', () => {
+            particles.length = 0;
+            gravityPoints.length = 0;
+        });
+
+        canvas.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            addGravityPoint(e);
+        });
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        animate();
+    </script>
+</body>
+</html>

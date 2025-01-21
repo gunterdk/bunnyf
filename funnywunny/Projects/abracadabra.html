@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abracadabra Magic</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            text-align: center;
+        }
+        #magic-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        #magic-text {
+            font-size: 36px;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+        #click-below {
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="magic-container">
+        <div id="magic-text">Abracadabra</div>
+        <div id="click-below">(Click above)</div>
+        <p id="click-counter">Magic Clicks: 0</p>
+    </div>
+
+    <script>
+        const magicText = document.getElementById('magic-text');
+        const clickBelow = document.getElementById('click-below');
+        const clickCounter = document.getElementById('click-counter');
+        let totalClicks = 0;
+        const actions = [
+            "You've summoned a rabbit!",
+            "A puff of smoke appears!",
+            "A burst of confetti fills the air!",
+            "A mysterious glow surrounds you!",
+            "You hear the sound of applause!",
+            "A shower of stars lights up the sky!",
+            "You find a hidden treasure chest!",
+            "You're surrounded by a rainbow!",
+            "A friendly dragon flies by!",
+            "A door to another world opens!",
+            "You're invisible for a day!",
+            "You can fly like a superhero!",
+            "You're granted three wishes!",
+            "You become a master magician!",
+            "Your favorite song starts playing!",
+            "You win the lottery!",
+            "A shooting star grants a wish!",
+            "You discover a magic wand!",
+            "You travel through time!",
+            "You meet a talking animal!",
+            "A book of spells appears!",
+            "You become a famous magician!",
+            "You have a magical aura!",
+            "You can read minds!",
+            "You meet a friendly ghost!",
+            "You receive a mystical amulet!",
+            "You can talk to animals!",
+            "You find a hidden portal!",
+            "You have unlimited wishes!",
+            "A rainbow appears wherever you go!",
+            "You can teleport anywhere!",
+            "You meet a magical fairy!",
+            "You discover a secret potion!",
+            "You have the power to heal!",
+            "You can control the weather!",
+            "You meet a wise old wizard!",
+            "You become a shape-shifter!",
+            "You have the gift of foresight!",
+            "You find a magical mirror!",
+            "You become a time traveler!",
+            "You gain superhuman strength!",
+            "You have the power of telekinesis!",
+            "You're surrounded by good luck!",
+            "You can speak all languages!",
+            "You can visit dreams!",
+            "You meet a friendly leprechaun!",
+            "You're protected by a guardian angel!",
+            "You discover a hidden world!",
+            "You summon a cloud of glitter!",
+            "A genie winks at you from a lamp!",
+            "A cupcake with magical frosting appears!",
+            "You unlock the secrets of the universe!",
+            "A phoenix rises from the flames!",
+            "A golden key lands in your hand!",
+            "You turn into a glowing orb of light!",
+            "You summon a swarm of friendly fireflies!",
+            "A magical melody fills the air!",
+            "Your shadow starts dancing on its own!",
+            "You sprout wings of light!",
+            "A magical garden blooms around you!",
+            "Your reflection winks at you!",
+            "A trail of sparkles follows your every step!",
+            "You summon a tiny, laughing elf!",
+            "A magical staircase appears in the sky!",
+            "You discover a map to hidden treasure!",
+            "You create a ripple in time!",
+            "You become a beacon of glowing energy!",
+            "A mystical harp starts playing by itself!",
+            "You summon a unicorn with a shimmering mane!",
+            "A magical quill starts writing a story for you!",
+            "Your words turn into glowing runes!",
+            "You summon a warm, glowing campfire!",
+            "A constellation forms in your honor!",
+            "A cozy magical cottage appears nearby!",
+            "A friendly goblin hands you a golden coin!",
+            "A spellbook opens to reveal a new spell!",
+            "A magical waterfall cascades from thin air!",
+            "A glowing butterfly lands on your hand!",
+            "A sparkling comet streaks across the sky!",
+            "You hear the laughter of invisible pixies!",
+            "A path of glowing mushrooms lights your way!",
+            "A dragon egg hatches before your eyes!",
+            "A magical wind carries your worries away!",
+            "You summon a gentle rain of stardust!",
+            "An enchanted chest opens to reveal a surprise!",
+            "Your surroundings turn into a dreamlike landscape!",
+            "A magical bridge forms beneath your feet!",
+            "You hear a whisper of ancient wisdom!",
+            "A beam of sunlight follows you everywhere!",
+            "A magical clock resets the time!",
+            "You find yourself in a secret, glowing forest!",
+            "A talking book starts telling you a story!",
+            "A crown of stars appears on your head!",
+            "You discover a hidden crystal cave!"
+        ];
+
+
+        magicText.addEventListener('click', () => {
+            const randomAction = actions[Math.floor(Math.random() * actions.length)];
+            magicText.textContent = randomAction;
+            totalClicks++;
+
+            // Update the click counter
+            clickCounter.textContent = `Magic Clicks: ${totalClicks}`;
+
+            // Reset to default text after 2 seconds
+            setTimeout(() => {
+                magicText.textContent = 'Abracadabra';
+            }, 2000);
+        });
+
+        clickBelow.addEventListener('click', () => {
+            // Reset the timer to make "Abracadabra" appear again
+            magicText.textContent = 'Abracadabra';
+        });
+    </script>
+</body>
+</html>

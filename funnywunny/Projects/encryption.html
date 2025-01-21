@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Encrypter and Decrypter with Enhanced ASCII Table</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    input {
+      padding: 5px;
+      margin: 5px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    /* Style for the ASCII table container */
+    .ascii-table-container {
+      margin-top: 20px;
+      max-height: 400px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      padding: 10px;
+    }
+
+    /* Style for the ASCII table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    /* Style for search input */
+    .search-container {
+      margin-top: 20px;
+    }
+
+    .search-container input {
+      padding: 8px;
+      font-size: 16px;
+      width: 200px;
+      margin-bottom: 20px;
+    }
+
+    /* Styling for the rules section */
+    .rules-section {
+      margin-top: 30px;
+      background-color: #f9f9f9;
+      padding: 15px;
+      border: 1px solid #ddd;
+    }
+
+    .rules-section h3 {
+      margin-top: 0;
+    }
+
+    /* Highlighting the matching rows */
+    .highlight {
+      background-color: yellow;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Custom Encrypter and Decrypter with Enhanced ASCII Table</h1>
+
+  <!-- Rules Section -->
+  <div class="rules-section">
+    <h3>Encryption and Decryption Rules</h3>
+    <p><strong>Encryption Process:</strong></p>
+    <ul>
+      <li>1. The input text is first <strong>reversed</strong> (flipped backwards).</li>
+      <li>2. Then, each character's ASCII value is <strong>shifted</strong> by a fixed number (default is 3). This means the ASCII value is increased by 3, which changes the character.</li>
+      <li>3. For example, if the character 'a' (ASCII 97) is encrypted with a shift of 3, it becomes 'd' (ASCII 100).</li>
+    </ul>
+
+    <p><strong>Decryption Process:</strong></p>
+    <ul>
+      <li>1. The input text (already encrypted) is first <strong>shifted back</strong> by the same amount (default is -3). This means the ASCII value of each character is decreased by 3 to return it to its original form.</li>
+      <li>2. After shifting, the text is <strong>reversed again</strong> to return the characters to their original order.</li>
+    </ul>
+
+    <p><strong>Example:</strong></p>
+    <p>If the input text is <code>"hello"</code>:</p>
+    <ul>
+      <li>First, it will be reversed: <code>"olleh"</code></li>
+      <li>Then, each character will be shifted by 3, resulting in <code>"roohk"</code></li>
+      <li>For decryption, <code>"roohk"</code> is first shifted back by 3 and then reversed to get the original <code>"hello"</code>.</li>
+    </ul>
+  </div>
+
+  <label for="inputText">Enter text to encrypt:</label>
+  <input type="text" id="inputText" placeholder="Enter text...">
+  
+  <button onclick="encryptText()">Encrypt</button>
+  <button onclick="decryptText()">Decrypt</button>
+
+  <div id="result"></div>
+
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search ASCII table..." oninput="searchASCII()">
+  </div>
+
+  <h2>ASCII Table</h2>
+  <div class="ascii-table-container">
+    <table id="asciiTable">
+      <thead>
+        <tr>
+          <th>Decimal</th>
+          <th>Character</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- ASCII table rows will be inserted here dynamically -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const shiftAmount = 3; // Custom shift amount for encryption
+
+    // Custom encryption function
+    function encryptText() {
+      const input = document.getElementById('inputText').value;
+      if (!input) {
+        document.getElementById('result').innerText = 'Please enter text to encrypt!';
+        return;
+      }
+
+      let encrypted = reverseString(input); // Reverse the string first
+      encrypted = shiftString(encrypted, shiftAmount); // Then shift each letter by a defined amount
+
+      document.getElementById('result').innerText = 'Encrypted Text: ' + encrypted;
+    }
+
+    // Custom decryption function
+    function decryptText() {
+      const input = document.getElementById('inputText').value;
+      if (!input) {
+        document.getElementById('result').innerText = 'Please enter text to decrypt!';
+        return;
+      }
+
+      let decrypted = shiftString(input, -shiftAmount); // Reverse the shift by shifting back
+      decrypted = reverseString(decrypted); // Then reverse the string
+
+      document.getElementById('result').innerText = 'Decrypted Text: ' + decrypted;
+    }
+
+    // Function to reverse the string
+    function reverseString(str) {
+      return str.split('').reverse().join('');
+    }
+
+    // Function to shift the letters of a string by a specific amount
+    function shiftString(str, shift) {
+      return str.split('').map(char => {
+        const charCode = char.charCodeAt(0); // Get ASCII value of the character
+        return String.fromCharCode(charCode + shift); // Shift the character by the shift amount
+      }).join('');
+    }
+
+    // Function to populate the ASCII table dynamically
+    function generateASCIITable() {
+      const tableBody = document.querySelector('#asciiTable tbody');
+      for (let i = 32; i <= 126; i++) { // Printable ASCII characters (space to ~)
+        const row = document.createElement('tr');
+        const decimalCell = document.createElement('td');
+        const charCell = document.createElement('td');
+
+        decimalCell.textContent = i;
+        charCell.textContent = String.fromCharCode(i);
+
+        row.appendChild(decimalCell);
+        row.appendChild(charCell);
+        tableBody.appendChild(row);
+      }
+    }
+
+    // Function to search within the ASCII table and show surrounding rows
+    function searchASCII() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const tableRows = document.querySelectorAll('#asciiTable tbody tr');
+      let matchedRow = null;
+
+      // Reset all highlights
+      tableRows.forEach(row => row.classList.remove('highlight'));
+
+      tableRows.forEach((row, index) => {
+        const charCell = row.cells[1].textContent.toLowerCase();
+        const decimalCell = row.cells[0].textContent;
+
+        if (charCell.includes(searchTerm) || decimalCell.includes(searchTerm)) {
+          // Highlight the matching row
+          row.classList.add('highlight');
+          matchedRow = index;
+        }
+      });
+
+      if (matchedRow !== null) {
+        // Show 3 rows above and below the matched row
+        const start = Math.max(matchedRow - 3, 0);
+        const end = Math.min(matchedRow + 3, tableRows.length - 1);
+
+        for (let i = 0; i < tableRows.length; i++) {
+          if (i >= start && i <= end) {
+            tableRows[i].style.display = '';
+          } else {
+            tableRows[i].style.display = 'none';
+          }
+        }
+      }
+    }
+
+    // Generate ASCII table on page load
+    window.onload = generateASCIITable;
+  </script>
+
+</body>
+</html>
