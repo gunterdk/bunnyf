@@ -20,7 +20,7 @@ function typeText(elementId, text, speed, callback) {
 // Text to type
 const headingText = "Welcome, Operator!";
 const firstParagraphText = "Accessing mainframe...";
-const secondParagraphText = "System ready. Enter a command above to proceed.";
+const secondParagraphText = "System ready. Enter a command above to proceed.----------------- Actually gotta rework this bulllllllshiiiit";
 
 // Typing speed (milliseconds) - faster typing speed
 const typingSpeed = 10; // Adjust the speed for typing effect
