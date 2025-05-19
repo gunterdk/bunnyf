@@ -1,196 +1,39 @@
-/* Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Press Start 2P', monospace; /* 8-bit pixel font */
-}
-
-/* Body Styling */
 body {
-    background-color: #0a0a0a; /* Darker gray to simulate monitor background */
-    color: #00ff00; /* Neon green for text */
-    padding: 0;
-    overflow: hidden;
+  margin: 0;
+  overflow: hidden;
+  background: #000;
+  cursor: none;
 }
 
-/* CRT Grainy Monitor Effect */
-body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 255, 0, 0.05);
-    mix-blend-mode: overlay;
-    z-index: 1;
-    pointer-events: none;
-    opacity: 0.1; /* Controls grain visibility */
+#maze-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
 }
 
-/* Top Bar */
-.topbar {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #0a0a0a;
-    padding: 1em;
-    position: relative;
-    border-bottom: 1px solid #00ff00; /* Line separator */
+/* Invisible walls */
+.wall {
+  position: absolute;
+  background: transparent;
+  pointer-events: none; /* No mouse interaction */
 }
 
-/* Menu Item Links */
-.menu-item a {
-    color: #00ff00; /* Green text color for links */
-    text-decoration: none; /* Remove underline from links */
-    display: inline-block;
-    padding: 10px;
-    border-radius: 5px;
-    font-family: 'Press Start 2P', cursive;
+/* Hidden bio text */
+.bio {
+  position: absolute;
+  color: cyan;
+  opacity: 0;
+  transition: opacity 0.3s;
+  text-shadow: 0 0 5px #0ff;
 }
 
-.menu-item a:hover {
-    color: #00ff00;
-    outline: 2px solid #00ff00; /* Green outline on hover */
-    outline-offset: 2px;
-}
-
-/* 8-Bit Style */
-.content {
-    padding: 2em;
-    filter: contrast(150%);
-    z-index: 2;
-    position: relative;
-}
-
-/* Text Dithering Effect */
-p, h1 {
-    font-size: 1.2em;
-    text-shadow:
-        1px 1px 0 #003300,
-        -1px -1px 0 #00ff00,
-        1px -1px 0 #004400,
-        -1px 1px 0 #00ff00;
-}
-
-/* Pixelated Effect */
-body, .topbar, .content {
-    image-rendering: pixelated;
-}
-
-/* Faint Glow Effect */
-h1, p, .menu-item, #typed-text {
-    text-shadow: 
-        0 0 5px rgba(0, 255, 0, 0.6), /* Soft green glow */
-        0 0 10px rgba(0, 255, 0, 0.6), /* Stronger green glow */
-        0 0 15px rgba(0, 255, 0, 0.4), /* Extended glow */
-        0 0 20px rgba(0, 255, 0, 0.4); /* Extended glow */
-}
-
-/* Profile Picture with 8-bit effect */
-.profile-pic {
-    width: 150px; /* Adjust size as needed */
-    height: 150px; /* Adjust size as needed */
-    object-fit: cover;
-    image-rendering: pixelated; /* Makes the image appear pixelated */
-    border-radius: 10px; /* Round the corners for a soft effect */
-    border: 3px solid #00ff00; /* Green border to match the theme */
-    margin-bottom: 20px;
-}
-
-/* Content styling */
-.profile-container {
-    text-align: center;
-    margin-top: 20px;
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 1.5em;
-    text-shadow: 0 0 10px rgba(0, 255, 0, 0.8); /* Glow effect */
-}
-
-/* Button Styling */
-.social-button {
-    background-color: transparent;
-    border: 2px solid #00ff00;
-    color: #00ff00;
-    padding: 12px 24px;
-    border-radius: 5px;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 1em;
-    cursor: pointer;
-    margin-top: 20px;
-    text-align: center;
-    transition: all 0.3s ease;
-    display: inline-block;
-    text-shadow: 
-        0 0 5px rgba(0, 255, 0, 0.6), 
-        0 0 10px rgba(0, 255, 0, 0.6);
-}
-
-.social-button:hover {
-    background-color: #00ff00;
-    color: #000000;
-    text-shadow: 
-        0 0 10px rgba(0, 255, 0, 1), 
-        0 0 20px rgba(0, 255, 0, 0.9);
-}
-
-/* Game Preview Container */
-.game-preview-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    overflow-y: auto;
-    height: 80vh; /* Limit the container height to allow scrolling */
-    margin-top: 20px;
-    margin-bottom: 60px; /* Space below the previews */
-}
-
-/* Individual Game Item */
-.game-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 200px;
-}
-
-/* Game Image Styling */
-.game-image {
-    width: auto;
-    height: 250px; /* Fixed height for image */
-    object-fit: cover;
-    margin-bottom: 10px;
-    border: 2px solid #00ff00; /* Green border to match the theme */
-}
-
-/* Game Name Styling */
-.game-item p {
-    text-align: center;
-    color: #00ff00;
-    font-size: 1em;
-    text-shadow: 0 0 5px rgba(0, 255, 0, 0.6);
-}
-
-/* Scrollbar Track */
-::-webkit-scrollbar-track {
-    background: black; /* Matches your background */
-    border: 1px solid green; /* Adds an outline with neon green */
-}
-
-/* Scrollbar Thumb */
-::-webkit-scrollbar-thumb {
-    background: green; /* Neon green thumb */
-    border: 2px solid black; /* Adds a border for a pixelated look */
-    border-radius: 4px; /* Optional: Adjust for style consistency */
-}
-
-/* Scrollbar Width */
-::-webkit-scrollbar {
-    width: 12px; /* Adjust for visible scrollbar size */
-    height: 12px; /* For horizontal scrollbars */
+/* Light source (dynamic via JS) */
+#light {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
 }

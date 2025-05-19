@@ -1,58 +1,44 @@
-// Function to type text with delay and handle line breaks correctly
-function typeText(elementId, text, speed, callback) {
-    let i = 0;
-    let element = document.getElementById(elementId);
-    
-    function typeCharacter() {
-        if (i < text.length) {
-            element.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(typeCharacter, speed);
-        } else {
-            // Callback to trigger the next typing phase
-            if (callback) callback();
-        }
+const light = document.createElement('div');
+light.id = 'light';
+document.body.appendChild(light);
+
+const walls = document.querySelectorAll('.wall');
+const bioElements = document.querySelectorAll('.bio');
+
+// Track mouse movement
+document.addEventListener('mousemove', (e) => {
+  const x = e.clientX;
+  const y = e.clientY;
+  
+  // Check wall collisions (simplified AABB)
+  let canPass = true;
+  walls.forEach(wall => {
+    const wallRect = wall.getBoundingClientRect();
+    if (
+      x > wallRect.left && 
+      x < wallRect.right && 
+      y > wallRect.top && 
+      y < wallRect.bottom
+    ) {
+      canPass = false;
     }
-
-    typeCharacter();
-}
-
-// Text to type
-const headingText = "Welcome, Operator!";
-const firstParagraphText = "Accessing mainframe...";
-const secondParagraphText = "System ready. Enter a command above to proceed.----------------- Actually gotta rework this bulllllllshiiiit";
-
-// Typing speed (milliseconds) - faster typing speed
-const typingSpeed = 10; // Adjust the speed for typing effect
-
-// Initialize typing effect for home page
-window.onload = () => {
-    const typedTextElement = document.getElementById("typed-text");
-
-    // Type the heading text first
-    typeText("typed-text", headingText, typingSpeed, () => {
-        // Add a line break after the first text (without disturbing the glow)
-        typedTextElement.innerHTML += "<br>";  // This ensures the line break works
-
-        // After heading text, type the first paragraph (Accessing mainframe...)
-        setTimeout(() => {
-            typeText("typed-text", firstParagraphText, typingSpeed, () => {
-                // Add a line break after the first paragraph
-                typedTextElement.innerHTML += "<br>";
-
-                // After first paragraph is done, type the second paragraph
-                setTimeout(() => {
-                    typeText("typed-text", secondParagraphText, typingSpeed);
-                }, 300); // Delay before starting the second paragraph
-            });
-        }, 300); // Delay before starting the first paragraph
+  });
+  
+  // Move light if no wall collision
+  if (canPass) {
+    light.style.left = `${x}px`;
+    light.style.top = `${y}px`;
+    
+    // Reveal bio elements near light
+    bioElements.forEach(bio => {
+      const bioRect = bio.getBoundingClientRect();
+      const distance = Math.sqrt(
+        Math.pow(x - (bioRect.left + bioRect.width / 2), 2) +
+        Math.pow(y - (bioRect.top + bioRect.height / 2), 2)
+      );
+      
+      if (distance < 100) bio.style.opacity = 1;
+      else bio.style.opacity = 0;
     });
-};
-
-function copyDiscordTag() {
-    const discordTag = "gunter_dk"; // Replace with your actual Discord tag
-    navigator.clipboard.writeText(discordTag).then(() => {
-        alert("Discord tag copied to clipboard!");
-    });
-}
-
+  }
+});

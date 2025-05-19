@@ -1,2 +1,217 @@
 <!DOCTYPE html>
-<meta http-equiv="refresh" content="0;url=home.html">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Dossier</title>
+    <style>
+        :root {
+            --bg-dark: #0a0a12;
+            --bg-panel: #121225;
+            --accent: #0ff;
+            --accent-alt: #f0f;
+            --text: #e0e0ff;
+            --text-dim: #a0a0c0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-dark);
+            color: var(--text);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .panel {
+            background: var(--bg-panel);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 200px;
+        }
+
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-alt));
+        }
+
+        .panel-header {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+        }
+
+        .panel-header::before {
+            content: '⊛';
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .panel-content {
+            color: var(--text-dim);
+            transition: all 0.5s ease;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .panel:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 255, 255, 0.1);
+        }
+
+        .panel:hover .panel-content {
+            opacity: 1;
+            height: auto;
+        }
+
+        .panel:hover .panel-header {
+            text-shadow: 0 0 10px var(--accent);
+        }
+
+        .glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle at center, 
+                rgba(0, 255, 255, 0.1) 0%, 
+                transparent 70%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .panel:hover .glow {
+            opacity: 0.5;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="panel">
+            <div class="glow"></div>
+            <div class="panel-header">Identity Matrix</div>
+            <div class="panel-content">
+                <p>Primary designation: <strong>gunter_dk</strong></p>
+                <p>Operational aliases: bunnyf</p>
+                <p>Current status: Chillin with Linux</p>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="glow"></div>
+            <div class="panel-header">Skill Nexus</div>
+            <div class="panel-content">
+                <ul>
+                    <li>Being myself → Level 69</li>
+                    <li>Goonology → Level 45</li>
+                    <li>Weirdness → Level ontop!</li>
+                </ul>
+                <p>Specializations: Being cringy during the development of this website</p>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="glow"></div>
+            <div class="panel-header">Digital Footprint</div>
+            <div class="panel-content">
+                <p>GitHub: <a href="https://github.com/gunterdk" target="_blank" rel="noopener noreferrer" style="color: var(--accent)">[gunterdk]</a></p>
+                <p>Steam: <a href="https://steamcommunity.com/profiles/76561198105527577/" target="_blank" rel="noopener noreferrer"  style="color: var(--accent)">[gunter_(dk)]</a></p>
+                <p>Other: [hmm prolly comming later]</p>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="glow"></div>
+            <div class="panel-header">Mission Log</div>
+            <div class="panel-content">
+                <p><strong>Current Objective:</strong> to keep existing!</p>
+                <p><strong>Previous Engagements:</strong> Tinkering with linux stuff</p>
+                <p><strong>Notable Achievements:</strong> Being alive</p>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="glow"></div>
+            <div class="panel-header">Cultural Database</div>
+            <div class="panel-content">
+                <p><strong>Preferred Media:</strong> [Video Game]: The Finals i guess</p>
+                <p><strong>Creative Output:</strong> THIS WEBSITE!</p>
+                <p><strong>Philosophical Alignment:</strong> Racoons are an upcomming god</p>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="glow"></div>
+            <div class="panel-header">Contact Protocol</div>
+            <div class="panel-content">
+                <p>cheese</p>
+                <img src="mypfp.png" alt="Sick pfp i made a long time ago!" width="200">
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>System last updated: 19th May 2025</p>
+        <p>Access level: Overview</p>
+    </div>
+
+    <script>
+        // Add subtle animation to panel glows
+        document.querySelectorAll('.panel').forEach((panel, index) => {
+            panel.addEventListener('mousemove', (e) => {
+                const glow = panel.querySelector('.glow');
+                const rect = panel.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                glow.style.background = `radial-gradient(circle at ${x}px ${y}px, 
+                    rgba(0, 255, 255, 0.2) 0%, 
+                    transparent 70%)`;
+            });
+
+            // Staggered appearance on load
+            setTimeout(() => {
+                panel.style.opacity = '1';
+                panel.style.transform = 'translateY(0)';
+            }, 100 * index);
+        });
+    </script>
+</body>
+</html>
